@@ -1,0 +1,141 @@
+<html>
+<head>
+	<link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css"/>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script src="/webdesk/vcXMLRPC.js"></script>	
+</head>
+
+  <body>
+<div class="fluig-style-guide">
+<form name="FormAproBordero" role="form">
+
+<div class="panel panel-primary" id="form">
+	<div class="panel-heading">
+		<h3 class="panel-title"><span class="fluigicon fluigicon-file fluigicon-md"></span>  Autorização Borderô de Pagamento</h3>
+    </div>  
+	<div class="panel-body">
+		<div class="row">
+				<div class="col-md-3">	
+					<label for="dt_validade">Data de validade </label>
+					<input type="text" name="dt_validade" class="form-control"  id="dt_validade" readonly> <br> <br> 
+				</div>
+                <div class="col-md-3">	
+					<label for="valortotal">Valor total </label>
+					<input type="text" name="valortotal" class="form-control"  id="valortotal" readonly> <br> <br> 
+				</div>                
+        </div>
+		
+		
+<!--  TRECHO OCULTO - class="hidden" Oculta a DIV -->
+		<div class="hidden"> 
+		<!-- <div class="panel-body"> -->
+				<div class="col-md-3">	
+					<label for="n_solicitacao">Número Solicitação: </label>
+					<input type="text" name="n_solicitacao" class="form-control"  id="n_solicitacao" > <br> <br> 
+				</div>
+        </div>
+<!--  TRECHO OCULTO - class="hidden" Oculta a DIV -->
+
+
+	</div>
+	<div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Lançamentos</h3>
+        </div>
+        <div class="panel-body">
+            <div id="target"></div>
+        </div>
+    </div>        
+</div>    
+</form>
+
+</div>
+
+<script type="text/template" id="templateLancamento" class="templateLancamento"> <!--mustache, este trecho foi aplicado para que o link fosse inserido-->
+    <tr>
+        <td>{{Indice}}</td>
+        <td>{{Documento}}</td>
+        <td>{{Favorecido}}</td>
+        <td>{{ValorLiquido}}</td>
+        <td>{{IdLan}}</td>            
+        <td><a href="/portal/p/CNC/pageworkflowview?app_ecm_workflowview_detailsProcessInstanceID={{SolFluig}}" target="_blank"> {{SolFluig}}</a></td>   
+    </tr>        
+</script>
+
+
+
+</body>
+
+<script> 
+// formata campo data
+var calendarDt_validade = FLUIGC.calendar('#dt_validade');
+
+// recebe campo do formulario
+var processo = document.getElementById('n_solicitacao').value; 
+//console.log(processo);
+
+// Preparacao de filtro para consulta
+var c1 = DatasetFactory.createConstraint("IDFLUIG", processo, processo, ConstraintType.MUST);
+var constraints = new Array(c1);
+//console.log(constraints);
+
+
+// coleta dados do dataset, utlizando filtro
+var datasetReturned = DatasetFactory.getDataset("_RM_BORDERO", null, constraints, null);
+//console.log(datasetReturned);
+
+// Gravando valores de retorno
+var records = datasetReturned.values;
+//console.log(records);
+
+// Coletando valor total e maior data de vencimento dos lançamentos do bordero, roda somente a primeira linha
+var VALORLIQUIDO 	=  records[0]["TOT_VALORLIQUIDO"];
+var VENCIMENTO 	    =  records[0]["MAX_VENCIMENTO"];
+//console.log(VALORLIQUIDO);
+//console.log(VENCIMENTO);
+
+// Preenchendo os campos com o resultados
+$("#valortotal").val(VALORLIQUIDO);
+$("#dt_validade").val(VENCIMENTO);
+
+// Montando uma tabela para visualização do dataset
+mydata = [];
+for (var index in records) {
+    var record = records[index];
+    mydata.push({
+        Indice: parseFloat(index) + 1, //Criando um contador para indice
+        Documento: record.NUMERODOCUMENTO,
+        Favorecido: record.FAVORECIDO,
+        ValorLiquido: record.VALORLIQUIDO,
+        IdLan: record.IDLAN,
+        SolFluig: record.FLUIG_MOV.replace('null','Outros'), //SolFluig: record.FLUIG_MOV, 
+        noResults: false
+    });
+}
+//console.log(mydata);
+
+// preenchimento da tabela do formulario 
+var myTable = FLUIGC.datatable('#target', {
+    dataRequest: mydata,
+    renderContent: '.templateLancamento',
+    //renderContent: ['Indice','Documento', 'Favorecido', 'ValorLiquido','IdLan','SolFluig'],
+    header: [
+        {'title': 'Indice'},
+        {'title': 'Número Doc.'},
+        {'title': 'Favorecido'},
+        {'title': 'Valor Líquido'},
+        {'title': 'Ident. Lançamento'},
+        {'title': 'Solicitação Fluig'}
+    ]
+}, function(err, data) {
+    // DO SOMETHING (error or success)
+});
+//console.log(myTable);
+
+
+</script>
+
+</html>
