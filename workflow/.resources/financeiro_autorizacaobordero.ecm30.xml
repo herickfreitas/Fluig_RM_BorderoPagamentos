@@ -29,7 +29,7 @@
     <processDefinitionVersionPK>
       <companyId>1</companyId>
       <processId>Borderô de Pagamento</processId>
-      <version>56</version>
+      <version>57</version>
     </processDefinitionVersionPK>
     <versionDescription></versionDescription>
     <formId>0</formId>
@@ -322,8 +322,8 @@ O responsável deverá analisar o borderô de pagamento e autorizar para geraç�
       <deadlineFieldName></deadlineFieldName>
       <joint>false</joint>
       <agreementPercentage>0</agreementPercentage>
-      <engineAllocationId>Grupo</engineAllocationId>
-      <engineAllocationConfiguration>&lt;AssignmentController&gt;&lt;Group&gt;w_GEF&lt;/Group&gt;&lt;/AssignmentController&gt;</engineAllocationConfiguration>
+      <engineAllocationId>Usuário</engineAllocationId>
+      <engineAllocationConfiguration>&lt;AssignmentController&gt;&lt;User&gt;robertosilva&lt;/User&gt;&lt;/AssignmentController&gt;</engineAllocationConfiguration>
       <selectColleague>1</selectColleague>
       <initialState>false</initialState>
       <notifyAuthorityDelay>true</notifyAuthorityDelay>
@@ -766,12 +766,12 @@ function beforeStateEntry(sequenceId) {
       </swimLanePK>
     </SwimLane>
     <SwimLane>
-      <color>FF0000</color>
-      <height>145</height>
-      <width>253</width>
-      <positionX>480</positionX>
-      <positionY>432</positionY>
-      <stateName>Desautorizado</stateName>
+      <color>82b0b7</color>
+      <height>301</height>
+      <width>733</width>
+      <positionX>0</positionX>
+      <positionY>132</positionY>
+      <stateName>Autorização do Borderô</stateName>
       <type>2</type>
       <parentSequence>0</parentSequence>
       <swimLanePK>
@@ -798,12 +798,12 @@ function beforeStateEntry(sequenceId) {
       </swimLanePK>
     </SwimLane>
     <SwimLane>
-      <color>82b0b7</color>
-      <height>301</height>
-      <width>733</width>
-      <positionX>0</positionX>
-      <positionY>132</positionY>
-      <stateName>Autorização do Borderô</stateName>
+      <color>FF0000</color>
+      <height>145</height>
+      <width>253</width>
+      <positionX>480</positionX>
+      <positionY>432</positionY>
+      <stateName>Desautorizado</stateName>
       <type>2</type>
       <parentSequence>0</parentSequence>
       <swimLanePK>
@@ -851,30 +851,6 @@ function beforeStateEntry(sequenceId) {
       </processComponGrafPK>
       <stateName>Grupo w_SG</stateName>
     </ProcessComponGraf>
-    <ProcessComponGraf>
-      <componType>1</componType>
-      <positionX>540</positionX>
-      <positionY>150</positionY>
-      <processComponGrafPK>
-        <companyId>1</companyId>
-        <processId>financeiro_autorizacaobordero</processId>
-        <version>1</version>
-        <componGrafSequence>38</componGrafSequence>
-      </processComponGrafPK>
-      <stateName>Grupo w_GEF</stateName>
-    </ProcessComponGraf>
-    <ProcessComponGraf>
-      <componType>1</componType>
-      <positionX>190</positionX>
-      <positionY>410</positionY>
-      <processComponGrafPK>
-        <companyId>1</companyId>
-        <processId>financeiro_autorizacaobordero</processId>
-        <version>1</version>
-        <componGrafSequence>40</componGrafSequence>
-      </processComponGrafPK>
-      <stateName>Grupo w_GEF</stateName>
-    </ProcessComponGraf>
   </list>
   <list>
     <ProcessLinkAssoc>
@@ -907,33 +883,13 @@ function beforeStateEntry(sequenceId) {
       <initialStateSequence>36</initialStateSequence>
       <finalStateSequence>14</finalStateSequence>
     </ProcessLinkAssoc>
-    <ProcessLinkAssoc>
-      <processLinkAssocPK>
-        <companyId>1</companyId>
-        <processId>financeiro_autorizacaobordero</processId>
-        <version>1</version>
-        <linkSequence>39</linkSequence>
-      </processLinkAssocPK>
-      <initialStateSequence>38</initialStateSequence>
-      <finalStateSequence>1</finalStateSequence>
-    </ProcessLinkAssoc>
-    <ProcessLinkAssoc>
-      <processLinkAssocPK>
-        <companyId>1</companyId>
-        <processId>financeiro_autorizacaobordero</processId>
-        <version>1</version>
-        <linkSequence>41</linkSequence>
-      </processLinkAssocPK>
-      <initialStateSequence>40</initialStateSequence>
-      <finalStateSequence>29</finalStateSequence>
-    </ProcessLinkAssoc>
   </list>
   <list>
     <ProcessLinkBend>
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>financeiro_autorizacaobordero</processId>
-        <version>56</version>
+        <version>57</version>
         <linkSequence>16</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -944,7 +900,7 @@ function beforeStateEntry(sequenceId) {
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>financeiro_autorizacaobordero</processId>
-        <version>56</version>
+        <version>57</version>
         <linkSequence>16</linkSequence>
         <bendSequence>2</bendSequence>
       </processLinkBendPK>
@@ -955,7 +911,7 @@ function beforeStateEntry(sequenceId) {
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>financeiro_autorizacaobordero</processId>
-        <version>56</version>
+        <version>57</version>
         <linkSequence>27</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -966,7 +922,7 @@ function beforeStateEntry(sequenceId) {
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>financeiro_autorizacaobordero</processId>
-        <version>56</version>
+        <version>57</version>
         <linkSequence>27</linkSequence>
         <bendSequence>2</bendSequence>
       </processLinkBendPK>
@@ -977,7 +933,7 @@ function beforeStateEntry(sequenceId) {
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>financeiro_autorizacaobordero</processId>
-        <version>56</version>
+        <version>57</version>
         <linkSequence>42</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -988,7 +944,7 @@ function beforeStateEntry(sequenceId) {
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>financeiro_autorizacaobordero</processId>
-        <version>56</version>
+        <version>57</version>
         <linkSequence>42</linkSequence>
         <bendSequence>2</bendSequence>
       </processLinkBendPK>
@@ -999,7 +955,7 @@ function beforeStateEntry(sequenceId) {
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>financeiro_autorizacaobordero</processId>
-        <version>56</version>
+        <version>57</version>
         <linkSequence>44</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -1017,7 +973,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>1</stateSequence>
       <appKey>approval</appKey>
       <appField>title</appField>
@@ -1027,7 +983,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>1</stateSequence>
       <appKey>approval</appKey>
       <appField>highlight</appField>
@@ -1037,7 +993,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>1</stateSequence>
       <appKey>approval</appKey>
       <appField>approve</appField>
@@ -1047,7 +1003,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>1</stateSequence>
       <appKey>approval</appKey>
       <appField>reject</appField>
@@ -1057,7 +1013,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>12</stateSequence>
       <appKey>approval</appKey>
       <appField>title</appField>
@@ -1067,7 +1023,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>12</stateSequence>
       <appKey>approval</appKey>
       <appField>highlight</appField>
@@ -1077,7 +1033,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>12</stateSequence>
       <appKey>approval</appKey>
       <appField>approve</appField>
@@ -1087,7 +1043,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>12</stateSequence>
       <appKey>approval</appKey>
       <appField>reject</appField>
@@ -1097,7 +1053,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>14</stateSequence>
       <appKey>approval</appKey>
       <appField>title</appField>
@@ -1107,7 +1063,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>14</stateSequence>
       <appKey>approval</appKey>
       <appField>highlight</appField>
@@ -1117,7 +1073,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>14</stateSequence>
       <appKey>approval</appKey>
       <appField>approve</appField>
@@ -1127,7 +1083,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>14</stateSequence>
       <appKey>approval</appKey>
       <appField>reject</appField>
@@ -1137,7 +1093,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>22</stateSequence>
       <appKey>approval</appKey>
       <appField>title</appField>
@@ -1147,7 +1103,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>22</stateSequence>
       <appKey>approval</appKey>
       <appField>highlight</appField>
@@ -1157,7 +1113,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>22</stateSequence>
       <appKey>approval</appKey>
       <appField>approve</appField>
@@ -1167,7 +1123,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>22</stateSequence>
       <appKey>approval</appKey>
       <appField>reject</appField>
@@ -1177,7 +1133,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>29</stateSequence>
       <appKey>approval</appKey>
       <appField>title</appField>
@@ -1187,7 +1143,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>29</stateSequence>
       <appKey>approval</appKey>
       <appField>highlight</appField>
@@ -1197,7 +1153,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>29</stateSequence>
       <appKey>approval</appKey>
       <appField>approve</appField>
@@ -1207,7 +1163,7 @@ function beforeStateEntry(sequenceId) {
       <id>0</id>
       <tenantId>0</tenantId>
       <processId>financeiro_autorizacaobordero</processId>
-      <processVersion>56</processVersion>
+      <processVersion>57</processVersion>
       <stateSequence>29</stateSequence>
       <appKey>approval</appKey>
       <appField>reject</appField>

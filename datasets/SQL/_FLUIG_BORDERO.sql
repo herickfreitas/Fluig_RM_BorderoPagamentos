@@ -1,7 +1,5 @@
-USE [Corporerm_Homolog]
-GO
 
-/****** Object:  View [dbo].[_Fluig_BORDERO]    Script Date: 08/03/2021 10:18:02 ******/
+/****** Object:  View [dbo].[_Fluig_BORDERO]    Script Date: 28/04/2021 15:57:19 ******/
 SET ANSI_NULLS OFF
 GO
 
@@ -11,9 +9,17 @@ GO
 
 
 
-CREATE VIEW [dbo].[_Fluig_BORDERO] AS
+ALTER VIEW [dbo].[_Fluig_BORDERO] AS
 
-SELECT 
+
+SELECT T1.*, 
+			CASE 
+			WHEN (SELECT [dbo].[Fluig_Autorizador_IDFLUIG] ( T1.FLUIG_MOV)) = 'Pool:Group:w_SG'		THEN 'simoneguimaraes'
+			WHEN (SELECT [dbo].[Fluig_Autorizador_IDFLUIG] ( T1.FLUIG_MOV)) = 'Pool:Group:w_VPF'	THEN 'leandropinto'
+			WHEN (SELECT [dbo].[Fluig_Autorizador_IDFLUIG] ( T1.FLUIG_MOV)) = 'Pool:Group:w_GP'		THEN 'lenouraschmidt'
+			ELSE (SELECT [dbo].[Fluig_Autorizador_IDFLUIG] ( T1.FLUIG_MOV))
+			END as ORDENADOR_DESPESA  FROM
+(SELECT 
 	B.IDFLUIG
 ,	B.IDBORDERO
 ,	B.DESCRICAO DESC_BORDERO
@@ -26,7 +32,8 @@ SELECT
 ,	dbo.FUNC_FORMATA_VALOR_MOEDA(X.VALORBAIXA) AS VALORLIQUIDO
 ,	M.MAX_VENCIMENTO
 ,	M.TOT_VALORLIQUIDO
---,	(SELECT [dbo].[Idmov_Fluig] (L.IDMOV)) AS FLUIG_MOV
+,	(SELECT [dbo].[Idmov_Fluig] (L.IDMOV)) AS FLUIG_MOV
+/*
 ,	CASE 
 	WHEN ( SELECT [dbo].[Idmov_Fluig] (L.IDMOV)) IS NOT NULL	THEN CONVERT(VARCHAR(20),(SELECT [dbo].[Idmov_Fluig] (L.IDMOV)))	-- Coleta ID do FLuig em qualquer movimento
 	WHEN ( SELECT [dbo].[Idmov_Origem] (L.IDMOV)) IS NOT NULL THEN ( SELECT CONVERT(VARCHAR(20),TTMV.NOME) FROM TMOV 
@@ -35,7 +42,7 @@ SELECT
 																	(SELECT [dbo].[Idmov_Origem] (L.IDMOV))) 
 	ELSE CONVERT(VARCHAR(20),(SELECT [dbo].[Idmov_Fluig] (L.IDMOV)))
 	END AS FLUIG_MOV
-
+*/
 			FROM FBORDERO B(NOLOCK)
 			JOIN FLAN L(NOLOCK) ON (B.CODCOLIGADA	=	L.CODCOLIGADA 
 								AND B.CODCXA		=	L.CODCXA 
@@ -45,7 +52,7 @@ SELECT
 			JOIN FLANBAIXA X(NOLOCK) ON (L.IDLAN=X.IDLAN)
 
 LEFT JOIN (SELECT 	B.IDFLUIG
-				,	MAX(convert(varchar,L.DATAPREVBAIXA,103)) 	AS MAX_VENCIMENTO			/* ATEN√á√ÉO DATAPREVBAIXA */
+				,	MAX(convert(varchar,L.DATAPREVBAIXA,103)) 	AS MAX_VENCIMENTO			/* ATEN«√O DATAPREVBAIXA */
 				,	dbo.FUNC_FORMATA_VALOR_MOEDA(SUM(X.VALORBAIXA)) AS TOT_VALORLIQUIDO
 								FROM FBORDERO B(NOLOCK)
 								JOIN FLAN L(NOLOCK) ON (B.CODCOLIGADA	=	L.CODCOLIGADA 
@@ -61,5 +68,8 @@ LEFT JOIN (SELECT 	B.IDFLUIG
 
 WHERE	X.DATACANCELBAIXA	IS NULL 
 AND		B.IDFLUIG			IS NOT NULL
+)T1
+
 GO
+
 
