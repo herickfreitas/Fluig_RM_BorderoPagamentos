@@ -1,5 +1,7 @@
+USE [corporerm]
+GO
 
-/****** Object:  View [dbo].[_Fluig_BORDERO]    Script Date: 28/04/2021 15:57:19 ******/
+/****** Object:  View [dbo].[_Fluig_BORDERO]    Script Date: 11/05/2021 18:04:21 ******/
 SET ANSI_NULLS OFF
 GO
 
@@ -9,17 +11,10 @@ GO
 
 
 
+
 ALTER VIEW [dbo].[_Fluig_BORDERO] AS
 
-
-SELECT T1.*, 
-			CASE 
-			WHEN (SELECT [dbo].[Fluig_Autorizador_IDFLUIG] ( T1.FLUIG_MOV)) = 'Pool:Group:w_SG'		THEN 'simoneguimaraes'
-			WHEN (SELECT [dbo].[Fluig_Autorizador_IDFLUIG] ( T1.FLUIG_MOV)) = 'Pool:Group:w_VPF'	THEN 'leandropinto'
-			WHEN (SELECT [dbo].[Fluig_Autorizador_IDFLUIG] ( T1.FLUIG_MOV)) = 'Pool:Group:w_GP'		THEN 'lenouraschmidt'
-			ELSE (SELECT [dbo].[Fluig_Autorizador_IDFLUIG] ( T1.FLUIG_MOV))
-			END as ORDENADOR_DESPESA  FROM
-(SELECT 
+SELECT 
 	B.IDFLUIG
 ,	B.IDBORDERO
 ,	B.DESCRICAO DESC_BORDERO
@@ -33,8 +28,15 @@ SELECT T1.*,
 ,	M.MAX_VENCIMENTO
 ,	M.TOT_VALORLIQUIDO
 ,	(SELECT [dbo].[Idmov_Fluig] (L.IDMOV)) AS FLUIG_MOV
-/*
 ,	CASE 
+		WHEN (SELECT [dbo].[Fluig_Autorizador_IDFLUIG] ((SELECT [dbo].[Idmov_Fluig] (L.IDMOV)))) = 'POOL:GROUP:W_SG'  THEN 'SIMONEGUIMARAES'
+		WHEN (SELECT [dbo].[Fluig_Autorizador_IDFLUIG] ((SELECT [dbo].[Idmov_Fluig] (L.IDMOV)))) = 'POOL:GROUP:W_GP'  THEN 'LENOURASCHMIDT'
+		WHEN (SELECT [dbo].[Fluig_Autorizador_IDFLUIG] ((SELECT [dbo].[Idmov_Fluig] (L.IDMOV)))) = 'POOL:GROUP:W_VPF' THEN 'LEANDROPINTO'
+		WHEN (SELECT [dbo].[Fluig_Autorizador_IDFLUIG] ((SELECT [dbo].[Idmov_Fluig] (L.IDMOV)))) IS NULL THEN UPPER(D.DESCRICAO)
+		ELSE (SELECT [dbo].[Fluig_Autorizador_IDFLUIG] ((SELECT [dbo].[Idmov_Fluig] (L.IDMOV))))
+		END AS ORDENADOR
+/*
+,	CASE -- FOI DESABILITADO QUANDO COLOCAMOS O PARCELA DE CONTRATOS EM PRODUÇÃO
 	WHEN ( SELECT [dbo].[Idmov_Fluig] (L.IDMOV)) IS NOT NULL	THEN CONVERT(VARCHAR(20),(SELECT [dbo].[Idmov_Fluig] (L.IDMOV)))	-- Coleta ID do FLuig em qualquer movimento
 	WHEN ( SELECT [dbo].[Idmov_Origem] (L.IDMOV)) IS NOT NULL THEN ( SELECT CONVERT(VARCHAR(20),TTMV.NOME) FROM TMOV 
 																	JOIN TTMV ON (TMOV.CODTMV=TTMV.CODTMV) 
@@ -50,6 +52,7 @@ SELECT T1.*,
 			JOIN FCFO F(NOLOCK) ON (L.CODCFO=F.CODCFO)
 			LEFT JOIN FTRBLAN T(NOLOCK)	ON (L.IDLAN=T.IDLAN)
 			JOIN FLANBAIXA X(NOLOCK) ON (L.IDLAN=X.IDLAN)
+			JOIN FTDO D ON(L.CODTDO=D.CODTDO)
 
 LEFT JOIN (SELECT 	B.IDFLUIG
 				,	MAX(convert(varchar,L.DATAPREVBAIXA,103)) 	AS MAX_VENCIMENTO			/* ATENÇÃO DATAPREVBAIXA */
@@ -68,8 +71,6 @@ LEFT JOIN (SELECT 	B.IDFLUIG
 
 WHERE	X.DATACANCELBAIXA	IS NULL 
 AND		B.IDFLUIG			IS NOT NULL
-)T1
-
 GO
 
 

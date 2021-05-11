@@ -1,7 +1,7 @@
-USE [Corporerm]
+USE [corporerm]
 GO
 
-/****** Object:  UserDefinedFunction [dbo].[Idmov_Fluig]    Script Date: 29/04/2021 09:41:29 ******/
+/****** Object:  UserDefinedFunction [dbo].[Idmov_Fluig]    Script Date: 11/05/2021 18:05:04 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -24,7 +24,7 @@ AS
     BEGIN  
 		
 		DECLARE @Retorno AS INT
-        select @Retorno = MAX(IDFLUIG) 
+        select @Retorno = MIN(IDFLUIG) --MAX(IDFLUIG) 
 		FROM TITMMOVWFLUIG 
 		WHERE IDMOV IN(	SELECT DISTINCT IDMOV 
 		FROM [dbo].[RASTREIAMOVIMENTOS_CNC] ( @idmov))

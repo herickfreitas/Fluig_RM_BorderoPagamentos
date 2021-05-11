@@ -1,7 +1,7 @@
-USE [Corporerm_Homolog]
+USE [Corporerm]
 GO
 
-/****** Object:  UserDefinedFunction [dbo].[Fluig_Autorizador_IDFLUIG]    Script Date: 04/05/2021 16:22:19 ******/
+/****** Object:  UserDefinedFunction [dbo].[Fluig_Autorizador_IDFLUIG]    Script Date: 10/05/2021 20:27:37 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -10,17 +10,16 @@ GO
 
 
 
-
-CREATE FUNCTION [dbo].[Fluig_Autorizador_IDFLUIG]  
+ALTER FUNCTION [dbo].[Fluig_Autorizador_IDFLUIG]  
 
 ( @idfluig AS INT) 
 
-RETURNS VARCHAR(20) 
+RETURNS VARCHAR(30) 
 AS
 
     BEGIN  
 
-		DECLARE @Retorno AS varchar(20)
+		DECLARE @Retorno AS varchar(30)
 
 		if ((SELECT count(*) FROM [RIOSRV013\SISTEMA].[FLUIG_DB].[dbo].[ML001077] WHERE n_solicitacao = @idfluig) > 0) 
 			/*	Solicitação de Autorização de Fornecimento	*/	
@@ -39,10 +38,10 @@ AS
 
 		else if ((SELECT count(*) FROM [RIOSRV013\SISTEMA].[FLUIG_DB].[dbo].[ML001085] WHERE n_solicitacao = @idfluig) > 0)
 			/*	Parcelas de contratos */							
-			SELECT @Retorno = gestorcc FROM [RIOSRV013\SISTEMA].[FLUIG_DB].[dbo].[ML001085] WHERE n_solicitacao = @idfluig
+			SELECT @Retorno = 'PRESIDENTE - CONTRATO' /* gestorcc */ FROM [RIOSRV013\SISTEMA].[FLUIG_DB].[dbo].[ML001085] WHERE n_solicitacao = @idfluig
 
 							
-		RETURN @Retorno 
+		RETURN UPPER(@Retorno)
 
     END
 

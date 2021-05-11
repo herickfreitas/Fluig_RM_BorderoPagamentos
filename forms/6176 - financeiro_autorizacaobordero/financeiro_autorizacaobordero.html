@@ -62,6 +62,7 @@
         <td>{{ValorLiquido}}</td>
         <td>{{IdLan}}</td>            
         <td><a href="/portal/p/CNC/pageworkflowview?app_ecm_workflowview_detailsProcessInstanceID={{SolFluig}}" target="_blank"> {{SolFluig}}</a></td>   
+        <td>{{Ordenador}}</td>
     </tr>        
 </script>
 
@@ -112,6 +113,7 @@ for (var index in records) {
         ValorLiquido: record.VALORLIQUIDO,
         IdLan: record.IDLAN,
         SolFluig: record.FLUIG_MOV.replace('null','Outros'), //SolFluig: record.FLUIG_MOV, 
+        Ordenador: record.ORDENADOR.replace('null','Outros'),
         noResults: false
     });
 }
@@ -128,7 +130,8 @@ var myTable = FLUIGC.datatable('#target', {
         {'title': 'Favorecido'},
         {'title': 'Valor Líquido'},
         {'title': 'Ident. Lançamento'},
-        {'title': 'Solicitação Fluig'}
+        {'title': 'Solicitação Fluig'},
+        {'title': 'Ordenador da Despesa'}
     ]
 }, function(err, data) {
     // DO SOMETHING (error or success)
